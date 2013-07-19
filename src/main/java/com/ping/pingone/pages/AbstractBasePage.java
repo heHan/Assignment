@@ -202,15 +202,15 @@ public abstract class AbstractBasePage {
 
 	/**
 	 * Wrap the webdriver findElement function to throw proper message
-	 * @param storeWebElement StoreWebElement 
+	 * @param webElementSelector webElementSelector 
 	 * @return WebElement reference to the web object
 	 */
-	protected WebElement findWebElement (By storeWebElement){
+	protected WebElement findWebElement (By webElementSelector){
 		try {
-			return webDriver.findElement(storeWebElement);	
+			return webDriver.findElement(webElementSelector);	
 		}
 		catch (NoSuchElementException noSuchElement) {
-			throw new AssertionError(storeWebElement.toString());
+			throw new AssertionError("Cannot find the web element with selector " + webElementSelector.toString());
 		}		
 	}
 	
@@ -218,29 +218,29 @@ public abstract class AbstractBasePage {
 	 * This function is for finding an element that is optional for the test case. Meaning if the element is not found
 	 * the test case can still continue executing. If you wanted the test case to stop executing when it is unable to find
 	 * the element please use the findWebElement function
-	 * @param storeWebElement
+	 * @param webElementSelector
 	 * @return the {@link WebElement} if one is found
 	 * @throws NoSuchElementException will be thrown if element is not found
 	 * @throws ElementNotVisibleException will be thrown if element is found but not displayed so it cannot be interacted with
 	 */
-	protected WebElement findOptionalWebElement (By storeWebElement) throws NoSuchElementException, ElementNotVisibleException{
-		WebElement webElement = webDriver.findElement(storeWebElement);
+	protected WebElement findOptionalWebElement (By webElementSelector) throws NoSuchElementException, ElementNotVisibleException{
+		WebElement webElement = webDriver.findElement(webElementSelector);
 		if (!webElement.isDisplayed()) {
 			//show the web elements
-			throw new ElementNotVisibleException(storeWebElement.toString());
+			throw new ElementNotVisibleException(webElementSelector.toString());
 		}
 		return webElement;	
 	}
 	
 	/**
 	 * This checks to make sure the element is on the page. Useful if the only verification needed is if the element exists.
-	 * @param storeWebElement
+	 * @param webElementSelector
 	 * @return if the element is found or not
 	 */
-	protected Boolean checkWebElementExists(By storeWebElement) {
+	protected Boolean checkWebElementExists(By webElementSelector) {
 		Boolean exists;
 		try {
-			webDriver.findElement(storeWebElement);
+			webDriver.findElement(webElementSelector);
 			exists = Boolean.TRUE;
 		} catch (NoSuchElementException noSuchElement) {
 			exists = Boolean.FALSE;
@@ -251,14 +251,14 @@ public abstract class AbstractBasePage {
 	}
 	
 	/**
-	 * @param storeWebElement should match multiple elements
-	 * @return list of all {@link WebElement} that match the specified {@link StoreWebElement}
+	 * @param webElementSelector should match multiple elements
+	 * @return list of all {@link WebElement} that match the specified {@link webElementSelector}
 	 */
-	protected List<WebElement> findWebElements (By storeWebElement) {
+	protected List<WebElement> findWebElements (By webElementSelector) {
 		try {
-			return webDriver.findElements(storeWebElement);
+			return webDriver.findElements(webElementSelector);
 		} catch (NoSuchElementException noSuchElement) {
-			throw new AssertionError(storeWebElement);
+			throw new AssertionError(webElementSelector);
 		}
 	}
 	
@@ -266,23 +266,23 @@ public abstract class AbstractBasePage {
 	 * This function is for finding elements that are optional for the test case. Meaning if the elements are not found
 	 * the test case can still continue executing. If you wanted the test case to stop executing when it is unable to find
 	 * the elements please use the findWebElements function
-	 * @param storeWebElement should match multiple elements
-	 * @return list of all {@link WebElement} that match the specified {@link StoreWebElement}
+	 * @param webElementSelector should match multiple elements
+	 * @return list of all {@link WebElement} that match the specified {@link webElementSelector}
 	 * @throws NoSuchElementException will be thrown if elements are not found
 	 * @throws ElementNotVisibleException will be thrown if elements are found but if any of the elements
 	 * are not displayed so they cannot be interacted with
 	 */
-	protected List<WebElement> findOptionalWebElements (By storeWebElement) throws NoSuchElementException, ElementNotVisibleException{
+	protected List<WebElement> findOptionalWebElements (By webElementSelector) throws NoSuchElementException, ElementNotVisibleException{
 		try {
-			List<WebElement> webElements = webDriver.findElements(storeWebElement);
+			List<WebElement> webElements = webDriver.findElements(webElementSelector);
 			for(WebElement webElement: webElements) {
 				if(!webElement.isDisplayed()) {
-					throw new ElementNotVisibleException(storeWebElement.toString());
+					throw new ElementNotVisibleException(webElementSelector.toString());
 				}
 			}
 			return webElements;
 		} catch (NoSuchElementException noSuchElement) {
-			throw new AssertionError(storeWebElement.toString());
+			throw new AssertionError(webElementSelector.toString());
 		}
 	}
 

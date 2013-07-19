@@ -8,7 +8,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
@@ -40,7 +41,7 @@ public abstract class AbstractWebDriverBase {
 	// Browser object can be expanded to handle browser versions and platforms
 	// could also initialize a remote webdriver through selenium grid
 	@Parameters({"browser"})
-	@BeforeClass(alwaysRun = true)
+	@BeforeMethod(alwaysRun = true)
 	public final void setup(@Optional("firefox") String browser) {
 		Browser testBrowser = Browser.getBrowser(browser, Browser.FIREFOX);
 		switch (testBrowser) {
@@ -53,6 +54,15 @@ public abstract class AbstractWebDriverBase {
 		}
 		else {
 			log.debug("webDriver is not be created successfully.");
+		}
+	}
+	/**
+	 * Shut down the wbeDriver session after each method run
+	 */
+	@AfterMethod(alwaysRun = true)
+	public final void shutdownWebDriver(){
+		if (webDriver != null){ 
+			webDriver.quit();
 		}
 	}
 }

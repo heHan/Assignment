@@ -9,13 +9,6 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>edu.uci.ics</groupId>
-			<artifactId>crawler4j</artifactId>
-			<version>3.5</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>3.2.1.RELEASE</version>
@@ -29,16 +22,6 @@
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>6.8.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.12</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.2.2</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -68,37 +51,6 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>java</goal>
-						</goals>
-						<configuration>
-							<mainClass>com.ea.test.SetupTestData</mainClass>
-							<arguments>
-								<argument>https://${test.cq5.env.name}.cms.origin.com/content/origin-store
-								</argument>
-								<argument>${test.cq5.env.name}</argument>
-								<argument>${test.skip.compile}</argument>
-							</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.5</version>
 				<configuration>
@@ -110,38 +62,13 @@
 						</property>
 						<property>
 							<name>listener</name>
-							<value>com.ea.test.listeners.WebDriverListener,com.ea.test.reporter.HTMLReport,com.ea.test.reporter.FunctionalReport</value>
+							<value>org.uncommons.reportng.HTMLReporter, org.uncommons.reportng.JUnitXMLReporter</value>
 						</property>
 					</properties>
-					<systemPropertyVariables>
-						<testLocales>${test.LOCALES}</testLocales>
-						<testCMSEnvironmentName>${test.cq5.env.name}
-						</testCMSEnvironmentName>
-					</systemPropertyVariables>
 					<suiteXmlFiles>
 						<suiteXmlFile>${test.XMLFILE}</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>properties-maven-plugin</artifactId>
-				<version>1.0-alpha-2</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>set-system-properties</goal>
-						</goals>
-						<configuration>
-							<properties>
-								<property>
-									<name>test.store.front.locales</name>
-									<value>${test.LOCALES}</value>
-								</property>
-							</properties>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

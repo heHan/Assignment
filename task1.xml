@@ -5,13 +5,8 @@
 		<parameter name="browser" value="firefox" />
 		<test verbose="1" name="Add an application">
 			<classes>
-				<class name="com.ping.test.TestPDPAssets" />
+				<class name="com.ping.pingone.tests.TestAddApplication" />
 			</classes>
 		</test>
-		<test verbose="1" name="PDP-checkout-flow-FireFox">
-			<classes>
-				<class name="com.ea.test.TestPDPContent" />
-			</classes>
-		</test> <!-- Firefox Test -->
 	</tests>
 </suite>
