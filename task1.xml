@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TASK 1" verbose="1">
+	<tests>
+		<parameter name="browser" value="firefox" />
+		<test verbose="1" name="Add an application">
+			<classes>
+				<class name="com.ping.test.TestPDPAssets" />
+			</classes>
+		</test>
+		<test verbose="1" name="PDP-checkout-flow-FireFox">
+			<classes>
+				<class name="com.ea.test.TestPDPContent" />
+			</classes>
+		</test> <!-- Firefox Test -->
+	</tests>
+</suite>
